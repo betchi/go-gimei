@@ -1,10 +1,7 @@
 package gimei
 
 import (
-	"io/ioutil"
 	"math/rand"
-	"os"
-	"path/filepath"
 	"strings"
 	"sync"
 	"time"
@@ -85,15 +82,8 @@ type Name struct {
 
 func loadNames() {
 	rp, _ := Asset("data/names.yml")
-	for _, p := range filepath.SplitList(os.Getenv("GOPATH")) {
-		f := filepath.Join(p, string(rp))
-		if _, err := os.Stat(f); err == nil {
-			if b, err := ioutil.ReadFile(f); err == nil {
-				if err = yaml.Unmarshal(b, &names); err == nil {
-					return
-				}
-			}
-		}
+	if err := yaml.Unmarshal(rp, &names); err == nil {
+		return
 	}
 	panic("failed to load names data")
 }
@@ -224,15 +214,8 @@ type Address struct {
 
 func loadAddresses() {
 	rp, _ := Asset("data/addresses.yml")
-	for _, p := range filepath.SplitList(os.Getenv("GOPATH")) {
-		f := filepath.Join(p, string(rp))
-		if _, err := os.Stat(f); err == nil {
-			if b, err := ioutil.ReadFile(f); err == nil {
-				if err = yaml.Unmarshal(b, &addresses); err == nil {
-					return
-				}
-			}
-		}
+	if err := yaml.Unmarshal(rp, &addresses); err == nil {
+		return
 	}
 	panic("failed to load names data")
 }
