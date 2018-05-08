@@ -84,9 +84,9 @@ type Name struct {
 }
 
 func loadNames() {
-	rp := "src/github.com/mattn/go-gimei/data/names.yml"
+	rp, _ := Asset("data/names.yml")
 	for _, p := range filepath.SplitList(os.Getenv("GOPATH")) {
-		f := filepath.Join(p, rp)
+		f := filepath.Join(p, string(rp))
 		if _, err := os.Stat(f); err == nil {
 			if b, err := ioutil.ReadFile(f); err == nil {
 				if err = yaml.Unmarshal(b, &names); err == nil {
@@ -223,9 +223,9 @@ type Address struct {
 }
 
 func loadAddresses() {
-	rp := "src/github.com/mattn/go-gimei/data/addresses.yml"
+	rp, _ := Asset("data/addresses.yml")
 	for _, p := range filepath.SplitList(os.Getenv("GOPATH")) {
-		f := filepath.Join(p, rp)
+		f := filepath.Join(p, string(rp))
 		if _, err := os.Stat(f); err == nil {
 			if b, err := ioutil.ReadFile(f); err == nil {
 				if err = yaml.Unmarshal(b, &addresses); err == nil {
